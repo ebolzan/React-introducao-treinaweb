@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import Course from "./Course";
+
+import NewCourseForm from "./NewCourseForm";
+
 import './App.css'
 
 class App extends Component{
@@ -22,8 +25,18 @@ class App extends Component{
     }
     ]
   }
-
+  
+  this.add = this.add.bind(this);
   this.remove = this.remove.bind(this);
+}
+
+add(course){
+
+  console.log(course);
+  const {courses} = this.state,
+  newCourse = Object.assign({}, course, {id: (Date.now())});
+  courses.push(newCourse);
+  this.setState({courses});
 }
 
 remove(courseId){
@@ -38,6 +51,7 @@ remove(courseId){
     const {state} = this;
     return(
      <div className="App">
+      <NewCourseForm merda={this.add} />
       <ul className="courses-list">
           {
             state.courses.map(course => <Course course={course} onRemove={this.remove}></Course>)
